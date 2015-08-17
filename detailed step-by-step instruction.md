@@ -1,0 +1,100 @@
+## The Power of Trust — detailed step-by-step instruction
+Try this if [the fast auto-installer script](README.md) doesn't work for you.
+
+
+On Ubuntu / Debian as root do:
+
+1. Create isolated user 'pot' to do not touch anything in the system and to limit process permissions  
+	```
+	adduser pot --disabled-password --gecos PoT --quiet
+	cd /home/pot
+	```
+
+1. Install some required packages
+	```
+	apt-get install curl p7zip-full screen -y
+	```
+
+1. Install RVM for user pot (but still as root)
+	```
+	sudo -H -u pot bash -c '
+		gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+		\curl -sSL https://get.rvm.io | bash -s stable
+	'
+	```
+
+1. Install Ruby (still as root)  
+	```
+	.rvm/scripts/rvm
+	rvm list remote
+	``` 
+	pick the latest ruby-2.0.x name and use in  
+	`rvm install {name} --binary` — should be like `rvm install ruby-2.0.0-p598 --binary`
+	```
+	chown -R pot .rvm
+	su pot
+	source .rvm/scripts/rvm
+	```
+	
+	>`rvm -v` — should show RVM version  
+	`type rvm | head -n 1` — should show `rvm is a function`  
+	`rvm list` — should show installed Ruby  
+	`ruby -v` — should be similar to `ruby 2.0.0p598 ...`  
+
+1. Install 25+ required gems  
+	```
+	gem install bundler --no-ri --no-rdoc
+	bundle
+	```
+
+1. Create base folder structure
+	```
+	wget inve.org/files/PoT/pack.tgz
+	tar -zxf pack.tgz --strip-components=1
+	rm pack.tgz
+	```
+
+1. Install MondoDB
+	```
+	wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.2.7.tgz
+	tar -zxf mongodb-linux-x86_64-2.2.7.tgz -C platform/mongodb --strip-components=1
+	rm mongodb-linux-x86_64-2.2.7.tgz
+	```
+	>`platform/mongodb/bin/mongod --version` — should show `db version v2.2.7, pdfile version 4.5`
+
+1. Start after reboot (needed for supernode)
+	```
+	echo '@reboot ./start.sh' >> tempcron
+	crontab tempcron
+	rm tempcron
+	```
+	>`crontab -l` — should show the added tasks
+
+1. Start  
+	`./start.sh`  
+	`script /dev/null` — resolves annoying problem with the terminal
+
+1. Now anytime under the user `pot` you can do:  
+	>*switch from root with: `su pot -c'script /dev/null'`  
+
+	`~/start.sh`  — start node (it it was stopped)  
+	`screen -r`   — check windows  
+	`screen -dm`  — start node-screen if it was terminated  
+
+	Inside screen hotkeys:  
+	`^a,space/backspace`  — navigate windows (Node, Web-client, top)  
+	`^a,'`                — select wnd  
+	`r`                   — restart failed task  
+	`^a,d`                — detach (return to the main terminal)
+
+	Finally:  
+	`localhost:3070`   — check Web-Client UI in any browser (WebKit-based or Firefox)  
+	`app/conf_base.rb` — configure your node if needed  
+	
+1. For supernode  
+	* If incoming connections are firewalled by default, you will need to add and exception for the node port `7733` (TCP).  
+	* You can also open external access to your Web-Client on port `3070` (useful for supernode, but danger for personal node).
+
+
+## Feedback
+Yura Babak — yura.des@gmail.com

@@ -1,2 +1,23 @@
-# installer-script
-For running a full node on UNIX-based systems
+# The Power of Trust — how to run a node
+Just get and run the auto-installer
+> Installer should be run under the root user. A special `pot` user will be created first and all the installation process will be done under that user and inside the `/home/pot` dir.  
+For the sake of security all the working processes will be run only under the `pot` user.
+
+* On Ubuntu / Debian  
+	`wget goo.gl/FmrbSi -qO pot_install.sh --no-check-certificate`  
+	and then  
+	`sh pot_install.sh` — for running a supernode  
+	`sh pot_install.sh -no_cron_tasks` — for occasional use
+  
+* Other Linux distributives are waiting for king contributors (just send your pull requests).
+
+Check the output for any errors and read the final notes.  
+If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction.md).
+
+## Resource usage
+* 750MB of a disk space will be used from start. 
+* Initial RAM usage: 120 MB (38 Node + 42 Web-Client + 40 MongoDB).
+* Very low CPU and traffic usage after the initial sync.
+
+## Feedback
+Yura Babak — yura.des@gmail.com
