@@ -169,13 +169,12 @@ echo -n ${W}Adding crontab @reboot tasks for $user$NC...
 	fi
 
 echo -n ${W}Starting now$NC...
-	common_first_line="\n${Y}Now anytime under the user '$user' you can do:$NC\n*switch from root with: su $user -c'script /dev/null'\n"
+	common_first_line="\n${Y}Now at anytime under the user '$user' you can do:$NC\n*switch from root with: su $user -c'script /dev/null'\n"
 	if [ ! `echo $params | grep -oe'-no_start_now '` ]; then
 		sudo -H -u $user bash -c "
 			cd ~
 			./start.sh
 		"
-		echo ${G}done
 		sleep 1
 		echo
 		echo "$common_first_line"
