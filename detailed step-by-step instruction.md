@@ -25,7 +25,7 @@ On Ubuntu / Debian as root do:
 
 1. Install Ruby (still as root)  
 	```
-	.rvm/scripts/rvm
+	. .rvm/scripts/rvm
 	rvm list remote
 	``` 
 	pick the latest ruby-2.0.x name and use in  
@@ -41,17 +41,17 @@ On Ubuntu / Debian as root do:
 	`rvm list` — should show installed Ruby  
 	`ruby -v` — should be similar to `ruby 2.0.0p598 ...`  
 
-1. Install 25+ required gems  
-	```
-	gem install bundler --no-ri --no-rdoc
-	bundle
-	```
-
 1. Create base folder structure
 	```
 	wget inve.org/files/PoT/pack.tgz
 	tar -zxf pack.tgz --strip-components=1
 	rm pack.tgz
+	```
+
+1. Install 25+ required gems  
+	```
+	gem install bundler --no-ri --no-rdoc
+	bundle
 	```
 
 1. Install MondoDB
