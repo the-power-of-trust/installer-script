@@ -74,7 +74,7 @@ On Ubuntu / Debian as root do:
 	`./start.sh`  
 	`script /dev/null` — resolves annoying problem with the terminal
 
-1. Now anytime under the user `pot` you can do:  
+1. Now at anytime under the user `pot` you can do:  
 	>*switch from root with: `su pot -c'script /dev/null'`  
 
 	`~/start.sh`  — start node (it it was stopped)  
@@ -83,7 +83,9 @@ On Ubuntu / Debian as root do:
 
 	Inside screen hotkeys:  
 	`^a,space/backspace`  — navigate windows (Node, Web-client, top)  
-	`^a,'`                — select wnd  
+	`^a,w`                — list windows  
+	`^a,[123]`            — switch to wnd by N  
+	`^a,Esc`              — enter the scrolling mode to read an output history  
 	`r`                   — restart failed task  
 	`^a,d`                — detach (return to the main terminal)
 
