@@ -56,9 +56,9 @@ On Ubuntu / Debian as root do:
 
 1. Install MondoDB
 	```
-	wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.2.7.tgz
-	tar -zxf mongodb-linux-x86_64-2.2.7.tgz -C platform/mongodb --strip-components=1
-	rm mongodb-linux-x86_64-2.2.7.tgz
+	wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.2.7.tgz -O mongodb.tgz
+	tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
+	rm mongodb.tgz
 	```
 	>`platform/mongodb/bin/mongod --version` — should show `db version v2.2.7, pdfile version 4.5`
 
