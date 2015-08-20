@@ -89,7 +89,7 @@ On Ubuntu / Debian as root do:
 	`r`                   — restart failed task  
 	`^a,d`                — detach (return to the main terminal)
 
-	Finally:  
+1. **Finally**  
 	`localhost:3070`   — check Web-Client UI in any browser (WebKit-based or Firefox)  
 	`app/conf_base.rb` — configure your node if needed  
 	
