@@ -46,7 +46,7 @@ fi
 
 echo "${Y}The Power of Trust installer"
 echo
-echo -n ${W}Creating isolated user \'$user\' to do not touch anything in the system and to limit process permissions$NC...
+printf ${W}Creating isolated user \'$user\' to do not touch anything in the system and to limit process permissions$NC...
 	if [ ! `echo $params | grep -oe'-no_adduser '` ]; then
 		adduser $user --disabled-password --gecos PoT --quiet
 		echo ${G}done
@@ -55,7 +55,7 @@ echo -n ${W}Creating isolated user \'$user\' to do not touch anything in the sys
 		echo skipped
 	fi
 
-echo -n ${W}Creating folder structure for $user
+printf ${W}Creating folder structure for $user
 	if [ ! `echo $params | grep -oe'-no_folders '` ]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '
@@ -92,7 +92,7 @@ if [ ! "$f_installed" ]; then
 	echo
 fi
 
-echo -n ${W}Installing RVM for $user
+printf ${W}Installing RVM for $user
 	if [ ! `echo $params | grep -oe'-no_rvm '` ]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '
@@ -106,7 +106,7 @@ echo -n ${W}Installing RVM for $user
 		echo $NC...skipped
 	fi
 
-echo -n ${W}Installing Ruby v2.0.x for $user
+printf ${W}Installing Ruby v2.0.x for $user
 	if [ ! `echo $params | grep -oe'-no_ruby '` ]; then
 		echo " -------$NC"
 		cd /home/$user
@@ -123,7 +123,7 @@ echo -n ${W}Installing Ruby v2.0.x for $user
 		echo $NC...skipped
 	fi
 
-echo -n ${W}Installing 25+ gems for $user
+printf ${W}Installing 25+ gems for $user
 	if [ ! `echo $params | grep -oe'-no_gems '` ]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '
@@ -138,7 +138,7 @@ echo -n ${W}Installing 25+ gems for $user
 		echo $NC...skipped
 	fi
 
-echo -n ${W}Installing MondoDB v2.2.7 for $user
+printf ${W}Installing MondoDB v2.2.7 for $user
 	if [ ! `echo $params | grep -oe'-no_mongo '` ]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '
@@ -154,7 +154,7 @@ echo -n ${W}Installing MondoDB v2.2.7 for $user
 		echo $NC...skipped
 	fi
 
-echo -n ${W}Adding crontab @reboot tasks for $user$NC...
+printf ${W}Adding crontab @reboot tasks for $user$NC...
 	if [ ! `echo $params | grep -oe'-no_cron_tasks '` ]; then
 		sudo -H -u $user bash -c "
 			cd ~
@@ -168,7 +168,7 @@ echo -n ${W}Adding crontab @reboot tasks for $user$NC...
 		echo skipped
 	fi
 
-echo -n ${W}Starting now$NC...
+printf ${W}Starting now$NC...
 	common_first_line="\n${Y}Now at anytime under the user '$user' you can do:$NC\n*switch from root with: su $user -c'script /dev/null'\n"
 	if [ ! `echo $params | grep -oe'-no_start_now '` ]; then
 		sudo -H -u $user bash -c "
