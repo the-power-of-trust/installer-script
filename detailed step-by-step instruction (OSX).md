@@ -15,6 +15,7 @@ On Mac OS X as root do:
 	dscl . create /Users/$name UniqueID $newid
 	dscl . create /Users/$name PrimaryGroupID 20
 	dscl . create /Users/$name NFSHomeDirectory /Users/$name
+	dscl . passwd /Users/$name $name
 	dscl . create /Users/$name IsHidden 1
 	
 	mkdir /Users/$name
@@ -89,8 +90,8 @@ On Mac OS X as root do:
 	`script /dev/null` — resolves annoying problem with the terminal
 
 1. Now at anytime under the user `pot` you can do:  
-	>*switch from root with: `su pot -c'script /dev/null'`  
-
+	>some commands work only if you are logged in as `pot` from the login screen, not with `su`
+	
 	`~/start.sh`  — start node (it it was stopped)  
 	`screen -r`   — check windows  
 	`screen -dm`  — start node-screen if it was terminated  
