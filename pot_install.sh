@@ -26,7 +26,7 @@ params="[$@ ]"
 #echo ${params%-no_start *}
 #if [ ! "$params" != "${params%-no_start *}" ]; then
 #	echo "param not detected"
-#fi 
+#fi
 
 
 if [ `echo $params | grep -oe'-dev '` ]; then
@@ -185,12 +185,12 @@ printf ${W}Starting now$NC...
 		echo "$common_first_line"
 		echo "$W  ~/start.sh$NC  — start node"
 	fi
-	
+
 echo "$W\
 $W  screen -r$NC   — check windows
 $W  screen -dm$NC  — start node-screen if it was terminated
 
-  Inside screen hotkeys:  
+  Inside screen hotkeys:
 $W    ^a,space/backspace$NC  — navigate windows (Node, Web-client, top)
 $W    ^a,w$NC                — list windows
 $W    ^a,[123]$NC            — switch to wnd by N
