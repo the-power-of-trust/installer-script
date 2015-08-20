@@ -158,7 +158,7 @@ printf ${W}Adding crontab @reboot tasks for $user$NC...
 	if [ ! `echo $params | grep -oe'-no_cron_tasks '` ]; then
 		sudo -H -u $user bash -c "
 			cd ~
-			echo '@reboot ./start.sh' >> tempcron
+			echo '@reboot sleep 5;./start.sh' >> tempcron
 			crontab tempcron
 			rm tempcron
 		"

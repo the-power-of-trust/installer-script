@@ -64,7 +64,7 @@ On Ubuntu / Debian as root do:
 
 1. Start after reboot (needed for supernode)
 	```
-	echo '@reboot ./start.sh' >> tempcron
+	echo '@reboot sleep 5;./start.sh' >> tempcron
 	crontab tempcron
 	rm tempcron
 	```
