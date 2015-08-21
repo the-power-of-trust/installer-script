@@ -2,7 +2,7 @@
 Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
 
-On Mac OS X as root do:
+On **Mac OS X** as `root` do:
 
 1. Create isolated user 'pot' to do not touch anything in the system and to limit process permissions  
 	```
@@ -25,7 +25,7 @@ On Mac OS X as root do:
 	```
 
 1. Install Homebrew if needed  
-	`http://brew.sh` — get installation command there  
+	<http://brew.sh> — get installation command there  
 	`brew update`  
 	>`brew doctor` — should show no problems
 
@@ -36,7 +36,7 @@ On Mac OS X as root do:
 
 1. Install RVM for user pot (but still as root)
 	```
-	sudo -H -u pot bash -c 'curl -L https://get.rvm.io | bash -s stable'
+	sudo -H -u pot bash -c 'curl -sSL https://get.rvm.io | bash -s stable'
 	alias rvm=.rvm/bin/rvm
 	```
 	>`rvm -v` — should show RVM version  

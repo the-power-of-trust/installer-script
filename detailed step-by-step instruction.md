@@ -2,7 +2,7 @@
 Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
 
-On Ubuntu / Debian as root do:
+On **Ubuntu / Debian** as root do:
 
 1. Create isolated user 'pot' to do not touch anything in the system and to limit process permissions  
 	```
