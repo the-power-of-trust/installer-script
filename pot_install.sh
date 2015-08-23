@@ -21,9 +21,10 @@ NC='\e[0m'
 # needed to detect param by trailing space
 params="[$@ ]"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	f_osx=true
-fi
+case `uname -s` in
+  "Darwin") f_osx=true
+esac
+
 
 if [[ $params == *'-dev '* ]]; then
 	echo -e "\e[0;36mDEV mode"
