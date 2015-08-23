@@ -20,19 +20,12 @@ NC='\e[0m'
 
 # needed to detect param by trailing space
 params="[$@ ]"
-# for tests:
-#echo $params | grep -oe'-de '
-# other way to detect params:
-#echo ${params%-no_start *}
-#if [ ! "$params" != "${params%-no_start *}" ]; then
-#	echo "param not detected"
-#fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	f_osx=true
 fi
 
-if [ `echo $params | grep -oe'-dev '` ]; then
+if [[ $params == *'-dev '* ]]; then
 	echo -e "\e[0;36mDEV mode"
 	user=pot_test
 	if [ $f_osx ]; then
@@ -63,7 +56,7 @@ fi
 echo -e "${Y}The Power of Trust installer"
 echo
 printf "${W}Creating isolated user \'$user\' to do not touch anything in the system and to limit process permissions$NC..."
-	if [ ! `echo $params | grep -oe'-no_adduser '` ]; then
+	if [[ $params != *'-no_adduser '* ]]; then
 		if [ $f_osx ]; then
 			dscl . create /Users/$user
 			dscl . create /Users/$user UserShell /bin/bash
@@ -89,7 +82,7 @@ printf "${W}Creating isolated user \'$user\' to do not touch anything in the sys
 	fi
 
 printf "${W}Creating folder structure for $user"
-	if [ ! `echo $params | grep -oe'-no_folders '` ]; then
+	if [[ $params != *'-no_folders '* ]]; then
 		echo -e " -------$NC"
 		sudo -H -u $user bash -c "
 			cd ~
@@ -143,7 +136,7 @@ else
 fi
 
 printf "${W}Installing RVM for $user"
-	if [ ! `echo $params | grep -oe'-no_rvm '` ]; then
+	if [[ $params != *'-no_rvm '* ]]; then
 		echo -e " -------$NC"
 		sudo -H -u $user bash -c 'curl -sSL https://get.rvm.io | bash -s stable'
 		ver=`sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm;rvm -v | cut -d' ' -f-3"`
@@ -154,7 +147,7 @@ printf "${W}Installing RVM for $user"
 	fi
 
 printf "${W}Installing Ruby v2.0.x for $user"
-	if [ ! `echo $params | grep -oe'-no_ruby '` ]; then
+	if [[ $params != *'-no_ruby '* ]]; then
 		echo -e " -------$NC"
 		cd $user_homedir
 		bash -c ". .rvm/scripts/rvm;rvm list remote"
@@ -171,7 +164,7 @@ printf "${W}Installing Ruby v2.0.x for $user"
 	fi
 
 printf "${W}Installing 25+ gems for $user"
-	if [ ! `echo $params | grep -oe'-no_gems '` ]; then
+	if [[ $params != *'-no_gems '* ]]; then
 		echo -e " -------$NC"
 		sudo -H -u $user bash -c '
 			cd ~
@@ -186,7 +179,7 @@ printf "${W}Installing 25+ gems for $user"
 	fi
 
 printf "${W}Installing MondoDB v2.2.7 for $user"
-	if [ ! `echo $params | grep -oe'-no_mongo '` ]; then
+	if [[ $params != *'-no_mongo '* ]]; then
 		echo -e " -------$NC"
 		sudo -H -u $user bash -c "
 			cd ~
@@ -206,7 +199,7 @@ printf "${W}Installing MondoDB v2.2.7 for $user"
 	fi
 
 printf "${W}Adding crontab @reboot tasks for $user$NC..."
-	if [ ! `echo $params | grep -oe'-no_cron_tasks '` ]; then
+	if [[ $params != *'-no_cron_tasks '* ]]; then
 		sudo -H -u $user bash -c "
 			cd ~
 			echo '@reboot sleep 5;./start.sh' >> tempcron
@@ -227,7 +220,7 @@ printf "${W}Starting now$NC..."
 	else
 		common_first_line+="*switch from root with: su $user -c'script /dev/null'\n"
 	fi
-	if [ ! `echo $params | grep -oe'-no_start_now '` ]; then
+	if [[ $params != *'-no_start_now '* ]]; then
 		sudo -H -u $user bash -c "
 			cd ~
 			./start.sh
