@@ -12,11 +12,11 @@
 # contribute here — https://github.com/the-power-of-trust/installer-script
 # feedback — yura.des@gmail.com
 
-W='\e[1;37m'
-G='\e[1;32m'
-Y='\e[1;33m'
-NC='\e[0m'
-# echo -e $NC;exit
+W=$'\e[1;37m'
+G=$'\e[1;32m'
+Y=$'\e[1;33m'
+NC=$'\e[0m'
+# echo $NC;exit
 
 # needed to detect param by trailing space
 params="[$@ ]"
@@ -27,7 +27,7 @@ esac
 
 
 if [[ $params == *'-dev '* ]]; then
-	echo -e "\e[0;36mDEV mode"
+	echo '\e[0;36m'DEV mode
 	user=pot_test
 	if [ $f_osx ]; then
 		dscl . -delete /Users/$user
@@ -42,19 +42,19 @@ user_homedir=/home/$user
 
 if [ `whoami` != "root" ]; then
 	echo
-	echo -e "$W    Installer should be launched from the root user$NC"
+	echo "$W    Installer should be launched from the root user$NC"
 	echo
 	exit
 fi
 if [[ $f_osx && ! -x `which brew` ]]; then
 	echo
-	echo -e "$W    Installe Homebrew first - visit http://brew.sh$NC"
+	echo "$W    Installe Homebrew first - visit http://brew.sh$NC"
 	echo
 	exit
 fi
 
 
-echo -e "${Y}The Power of Trust installer"
+echo "${Y}The Power of Trust installer"
 echo
 printf "${W}Creating isolated user \'$user\' to do not touch anything in the system and to limit process permissions$NC..."
 	if [[ $params != *'-no_adduser '* ]]; then
@@ -76,13 +76,13 @@ printf "${W}Creating isolated user \'$user\' to do not touch anything in the sys
 		else
 			adduser $user --disabled-password --gecos PoT --quiet
 		fi
-		echo -e ${G}done
+		echo ${G}done
 		echo
 	else
 		echo skipped
 	fi
 
-printf "${W}Creating folder structure for $user..."
+printf "${W}Creating folder structure for $user$NC..."
 	if [[ $params != *'-no_folders '* ]]; then
 		sudo -H -u $user bash -c "
 			cd ~
@@ -94,7 +94,7 @@ printf "${W}Creating folder structure for $user..."
 			tar -zxf pack.tgz --strip-components=1
 			rm pack.tgz
 		"
-		echo -e ${G}done
+		echo ${G}done
 		echo
 	else
 		echo skipped
@@ -103,87 +103,87 @@ printf "${W}Creating folder structure for $user..."
 if [ ! $f_osx ]; then
 	f_installed=`dpkg -l | grep 'ii *curl'`
 	if [ ! "$f_installed" ]; then
-		echo -e ${W}Installing curl -------$NC
+		echo ${W}Installing curl -------$NC
 		apt-get install curl -y
-		echo -e ${W}------- ${G}done
+		echo ${W}------- ${G}done
 		echo
 	fi
 
 	f_installed=`dpkg -l | grep 'ii *screen'`
 	if [ ! "$f_installed" ]; then
-		echo -e ${W}Installing screen -------$NC
+		echo ${W}Installing screen -------$NC
 		apt-get install screen -y
-		echo -e ${W}------- ${G}done
+		echo ${W}------- ${G}done
 		echo
 	fi
 fi
 
 if [ $f_osx ]; then
 	if [ ! -x /usr/local/bin/7z2 ]; then
-		echo -e ${W}Installing p7zip -------$NC
+		echo ${W}Installing p7zip -------$NC
 		brew install p7zip
-		echo -e ${W}------- ${G}done
+		echo ${W}------- ${G}done
 		echo
 	fi
 else
 	f_installed=`dpkg -l | grep 'ii *p7zip-full'`
 	if [ ! "$f_installed" ]; then
-		echo -e ${W}Installing p7zip-full -------$NC
+		echo ${W}Installing p7zip-full -------$NC
 		apt-get install p7zip-full -y
-		echo -e ${W}------- ${G}done
+		echo ${W}------- ${G}done
 		echo
 	fi
 fi
 
 printf "${W}Installing RVM for $user"
 	if [[ $params != *'-no_rvm '* ]]; then
-		echo -e " -------$NC"
+		echo " -------$NC"
 		sudo -H -u $user bash -c '
 			gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 			\curl -sSL https://get.rvm.io | bash -s stable
 		'
 		ver=`sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm;rvm -v | cut -d' ' -f-3"`
-		echo -e ${W}------- ${G}installed: $ver
+		echo ${W}------- ${G}installed: $ver
 		echo
 	else
-		echo -e $NC...skipped
+		echo $NC...skipped
 	fi
 
 printf "${W}Installing Ruby v2.0.x for $user"
 	if [[ $params != *'-no_ruby '* ]]; then
-		echo -e " -------$NC"
+		echo " -------$NC"
 		cd $user_homedir
 		bash -c ". .rvm/scripts/rvm;rvm list remote"
 		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.0\..* | tail -1`
-		echo -e Using binaries for ${W}$file_name$NC
+		echo Using binaries for ${W}$file_name$NC
 		bash -c ". .rvm/scripts/rvm;rvm install $file_name --binary"
 		chown -R $user .rvm
 		sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm; rvm use $file_name --default"
 		ver=`sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm; ruby -v"`
-		echo -e ${W}------- ${G}installed: $ver
+		echo ${W}------- ${G}installed: $ver
 		echo
 	else
-		echo -e $NC...skipped
+		echo $NC...skipped
 	fi
 
 printf "${W}Installing 25+ gems for $user"
 	if [[ $params != *'-no_gems '* ]]; then
-		echo -e " -------$NC"
+		echo " -------$NC"
 		sudo -H -u $user bash -c '
 			cd ~
 			. .rvm/scripts/rvm
 			gem install bundler --no-ri --no-rdoc
 			bundle
 		'
-		echo -e ${W}------- ${G}done
+		echo ${W}------- ${G}done
 		echo
 	else
-		echo -e $NC...skipped
+		echo $NC...skipped
 	fi
 
 printf "${W}Installing MondoDB v2.2.7 for $user"
 	if [[ $params != *'-no_mongo '* ]]; then
-		echo -e " -------$NC"
+		echo " -------$NC"
 		sudo -H -u $user bash -c "
 			cd ~
 			if [ $f_osx ]; then
@@ -195,10 +195,10 @@ printf "${W}Installing MondoDB v2.2.7 for $user"
 			rm mongodb.tgz
 		"
 		ver=`sudo -H -u $user bash -c "~/platform/mongodb/bin/mongod --version | grep 'db ver' | cut -d, -f-1"`
-		echo -e ${W}------- ${G}installed: $ver
+		echo ${W}------- ${G}installed: $ver
 		echo
 	else
-		echo -e $NC...skipped
+		echo $NC...skipped
 	fi
 
 printf "${W}Adding crontab @reboot tasks for $user$NC..."
@@ -209,7 +209,7 @@ printf "${W}Adding crontab @reboot tasks for $user$NC..."
 			crontab tempcron
 			rm tempcron
 		"
-		echo -e ${G}done
+		echo ${G}done
 		echo
 	else
 		echo skipped
@@ -230,16 +230,18 @@ printf "${W}Starting now$NC..."
 		"
 		sleep 1
 		echo
-		echo -e "$common_first_line"
-		echo -e "$W  ~/start.sh$NC  — start node (now already started)"
+		printf "$common_first_line"
+		echo
+		echo "$W  ~/start.sh$NC  — start node (now already started)"
 	else
 		echo skipped
 		echo
-		echo -e "$common_first_line"
-		echo -e "$W  ~/start.sh$NC  — start node"
+		printf "$common_first_line"
+		echo
+		echo "$W  ~/start.sh$NC  — start node"
 	fi
 
-echo -e "$W\
+echo "$W\
 $W  screen -r$NC   — check windows
 $W  screen -dm$NC  — start node-screen if it was terminated
 
@@ -263,4 +265,4 @@ $W    app/conf_base.rb$NC — configure your node if needed
 "
 
 echo
-echo -e $NC
+echo $NC
