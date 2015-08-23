@@ -105,16 +105,26 @@ if [ ! $f_osx ]; then
 	f_installed=`dpkg -l | grep 'ii *curl'`
 	if [ ! "$f_installed" ]; then
 		echo ${W}Installing curl -------$NC
-		apt-get install curl -y
-		echo ${W}------- ${G}done
+		apt-get install curl -y  ||  yum -y install curl
+		f_installed=`dpkg -l | grep 'ii *curl'`
+		if [ ! "$f_installed" ]; then
+			echo ${W}------- ${G}fail
+		else
+			echo ${W}------- ${G}done
+		fi
 		echo
 	fi
 
 	f_installed=`dpkg -l | grep 'ii *screen'`
 	if [ ! "$f_installed" ]; then
 		echo ${W}Installing screen -------$NC
-		apt-get install screen -y
-		echo ${W}------- ${G}done
+		apt-get install screen -y  ||  yum -y install screen
+		f_installed=`dpkg -l | grep 'ii *screen'`
+		if [ ! "$f_installed" ]; then
+			echo ${W}------- ${G}fail
+		else
+			echo ${W}------- ${G}done
+		fi
 		echo
 	fi
 fi
@@ -127,11 +137,16 @@ if [ $f_osx ]; then
 		echo
 	fi
 else
-	f_installed=`dpkg -l | grep 'ii *p7zip-full'`
+	f_installed=`dpkg -l | grep 'ii *p7zip'`
 	if [ ! "$f_installed" ]; then
 		echo ${W}Installing p7zip-full -------$NC
-		apt-get install p7zip-full -y
-		echo ${W}------- ${G}done
+		apt-get install p7zip-full -y  ||  yum -y install p7zip
+		f_installed=`dpkg -l | grep 'ii *p7zip'`
+		if [ ! "$f_installed" ]; then
+			echo ${W}------- ${G}fail
+		else
+			echo ${W}------- ${G}done
+		fi
 		echo
 	fi
 fi
