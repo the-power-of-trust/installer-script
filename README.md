@@ -6,8 +6,8 @@ For the sake of security all the working processes will be run only under the `p
 * On **Ubuntu / Debian**  
 	`wget goo.gl/FmrbSi -qO pot_install.sh --no-check-certificate`  
 	and then  
-	`sh pot_install.sh -no_cron_tasks` — for occasional use  
-	`sh pot_install.sh` — for running a supernode with opened external port  
+	`bash pot_install.sh -no_cron_tasks` — for occasional use  
+	`bash pot_install.sh` — for running a supernode with opened external port  
 	  
 	Check the output for any errors and read the final notes.  
 	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction.md).
@@ -15,8 +15,8 @@ For the sake of security all the working processes will be run only under the `p
 * On **Mac OS X**  
 	`curl -sSL goo.gl/FmrbSi -o pot_install.sh`  
 	and then  
-	`sh pot_install.sh -no_cron_tasks` — for occasional use  
-	`sh pot_install.sh` — for running a supernode with opened external port  
+	`bash pot_install.sh -no_cron_tasks` — for occasional use  
+	`bash pot_install.sh` — for running a supernode with opened external port  
 	  
 	Check the output for any errors and read the final notes.  
 	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction (OSX).md).

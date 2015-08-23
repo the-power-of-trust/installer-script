@@ -82,23 +82,22 @@ printf "${W}Creating isolated user \'$user\' to do not touch anything in the sys
 		echo skipped
 	fi
 
-printf "${W}Creating folder structure for $user"
+printf "${W}Creating folder structure for $user..."
 	if [[ $params != *'-no_folders '* ]]; then
-		echo -e " -------$NC"
 		sudo -H -u $user bash -c "
 			cd ~
 			if [ $f_osx ]; then
-				curl -O inve.org/files/PoT/pack.tgz
+				curl -sSO inve.org/files/PoT/pack.tgz
 			else
-				wget inve.org/files/PoT/pack.tgz
+				wget -q inve.org/files/PoT/pack.tgz
 			fi
 			tar -zxf pack.tgz --strip-components=1
 			rm pack.tgz
 		"
-		echo -e ${W}------- ${G}done
+		echo -e ${G}done
 		echo
 	else
-		echo -e $NC...skipped
+		echo skipped
 	fi
 
 if [ ! $f_osx ]; then
@@ -139,7 +138,10 @@ fi
 printf "${W}Installing RVM for $user"
 	if [[ $params != *'-no_rvm '* ]]; then
 		echo -e " -------$NC"
-		sudo -H -u $user bash -c 'curl -sSL https://get.rvm.io | bash -s stable'
+		sudo -H -u $user bash -c '
+			gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+			\curl -sSL https://get.rvm.io | bash -s stable
+		'
 		ver=`sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm;rvm -v | cut -d' ' -f-3"`
 		echo -e ${W}------- ${G}installed: $ver
 		echo
