@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # As root do:
 # recommended for Supernode:
-#./pot_install.sh
+# bash pot_install.sh
 # recommended for occasional use:
-#./pot_install.sh -no_cron_tasks
+# bash pot_install.sh -no_cron_tasks
 #
 # all the optional params:
-#./pot_install.sh -dev -no_adduser -no_folders -no_rvm -no_ruby -no_gems -no_mongo -no_cron_tasks -no_start_now
+# bash pot_install.sh -dev -no_adduser -no_folders -no_rvm -no_ruby -no_gems -no_mongo -no_cron_tasks -no_start_now
 #
 # contribute here — https://github.com/the-power-of-trust/installer-script
 # feedback — yura.des@gmail.com
