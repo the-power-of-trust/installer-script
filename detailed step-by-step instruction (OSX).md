@@ -2,48 +2,63 @@
 Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
 
-On **Ubuntu / Debian** as root do:
+On **Mac OS X** as `root` do:
 
 1. Create isolated user 'pot' to do not touch anything in the system and to limit process permissions  
 	```
-	adduser pot --disabled-password --gecos PoT --quiet
-	cd /home/pot
+	name=pot
+	dscl . create /Users/$name
+	dscl . create /Users/$name UserShell /bin/bash
+	dscl . create /Users/$name RealName "$name"
+	maxid=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -ug | tail -1)
+	newid=$((maxid+1))
+	dscl . create /Users/$name UniqueID $newid
+	dscl . create /Users/$name PrimaryGroupID 20
+	dscl . create /Users/$name NFSHomeDirectory /Users/$name
+	dscl . passwd /Users/$name $name
+	dscl . create /Users/$name IsHidden 1
+	
+	mkdir /Users/$name
+	chown -R $name /Users/$name
+	
+	cd /Users/$name
 	```
+
+1. Install Homebrew if needed  
+	<http://brew.sh> — get installation command there  
+	`brew update`  
+	>`brew doctor` — should show no problems
 
 1. Install some required packages
 	```
-	apt-get install curl p7zip-full screen -y
+	brew install p7zip
 	```
 
 1. Install RVM for user pot (but still as root)
 	```
-	sudo -H -u pot bash -c '
-		gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-		\curl -sSL https://get.rvm.io | bash -s stable
-	'
+	sudo -H -u pot bash -c 'curl -sSL https://get.rvm.io | bash -s stable'
+	alias rvm=.rvm/bin/rvm
 	```
+	>`rvm -v` — should show RVM version  
 
 1. Install Ruby (still as root)  
 	```
-	. .rvm/scripts/rvm
-	rvm list remote
+	file_name=ruby-2.0.0-p643
+	rvm install $file_name --binary
 	``` 
-	pick the latest ruby-2.0.x name and use in  
-	`rvm install {name} --binary` — should be like `rvm install ruby-2.0.0-p598 --binary`
-	```
+	``` 
 	chown -R pot .rvm
 	su pot
 	source .rvm/scripts/rvm
+	rvm use $file_name --default
 	```
 	
-	>`rvm -v` — should show RVM version  
-	`type rvm | head -n 1` — should show `rvm is a function`  
-	`rvm list` — should show installed Ruby  
+	>`rvm list` — should show installed Ruby  
 	`ruby -v` — should be similar to `ruby 2.0.0p598 ...`  
 
 1. Create base folder structure
 	```
-	wget inve.org/files/PoT/pack.tgz
+	curl -O inve.org/files/PoT/pack.tgz
 	tar -zxf pack.tgz --strip-components=1
 	rm pack.tgz
 	```
@@ -56,7 +71,7 @@ On **Ubuntu / Debian** as root do:
 
 1. Install MondoDB
 	```
-	wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.2.7.tgz -O mongodb.tgz
+	curl http://downloads.mongodb.org/osx/mongodb-osx-x86_64-2.2.7.tgz -o mongodb.tgz
 	tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
 	rm mongodb.tgz
 	```
@@ -75,8 +90,8 @@ On **Ubuntu / Debian** as root do:
 	`script /dev/null` — resolves annoying problem with the terminal
 
 1. Now at anytime under the user `pot` you can do:  
-	>*switch from root with: `su pot -c'script /dev/null'`  
-
+	>some commands work only if you are logged in as `pot` from the login screen, not with `su`
+	
 	`~/start.sh`  — start node (it it was stopped)  
 	`screen -r`   — check windows  
 	`screen -dm`  — start node-screen if it was terminated  
