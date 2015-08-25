@@ -154,7 +154,7 @@ printf "${W}Installing Ruby v2.0.x for $user"
 		echo " -------$NC"
 		cd $user_homedir
 		bash -c ". .rvm/scripts/rvm;rvm list remote"
-		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.0\..* | tail -1`
+		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.0\..* | grep -v clang | tail -1`
 		echo Using binaries for ${W}$file_name$NC
 		bash -c ". .rvm/scripts/rvm;rvm install $file_name --binary"
 		chown -R $user .rvm
