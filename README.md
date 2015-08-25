@@ -12,7 +12,9 @@ For the sake of security all the working processes will be run only under the `p
 	Check the output for any errors and read the final notes.  
 	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction.md).
   
-* On **Mac OS X**  
+* On **Mac OS X** (10.9+)
+	>Currently there is a problem if brew is not owned by root   
+	
 	`curl -sSL goo.gl/FmrbSi -o pot_install.sh`  
 	and then  
 	`bash pot_install.sh -no_cron_tasks` — for occasional use  
