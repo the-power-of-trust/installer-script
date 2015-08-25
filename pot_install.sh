@@ -34,6 +34,7 @@ if [[ $params == *'-dev '* ]]; then
 		rm -rf /Users/$user
 	else
 		userdel $user
+		rm -rf /home/$user
 	fi
 else
 	user=pot
@@ -53,8 +54,8 @@ if [[ $f_osx && ! -x `which brew` ]]; then
 	exit
 fi
 
-
-echo "${Y}The Power of Trust installer"
+echo
+echo "    ${Y}The Power of Trust installer"
 echo
 printf "${W}Creating isolated user \'$user\' to do not touch anything in the system and to limit process permissions$NC..."
 	if [[ $params != *'-no_adduser '* ]]; then

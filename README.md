@@ -1,6 +1,6 @@
 # The Power of Trust — how to run a node
 Just get and run the auto-installer script
-> Installer should be run under the `root` user. A special `pot` user will be created first and all the installation process will be done under that user and inside the `/home/pot` dir.  
+> Installer should be run under the `root` user. A special `pot` user will be created first and all the installation process will be done under that user and inside the `/home/pot` (`/Users/pot`) dir.  
 For the sake of security all the working processes will be run only under the `pot` user.
 
 * On **Ubuntu / Debian**  
