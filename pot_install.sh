@@ -167,7 +167,7 @@ printf "${W}Installing Ruby v2.0.x for $user"
 		echo $NC...skipped
 	fi
 
-printf "${W}Installing 25+ gems for $user"
+printf "${W}Installing 30+ gems for $user"
 	if [[ $params != *'-no_gems '* ]]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '

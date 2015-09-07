@@ -48,7 +48,7 @@ On **Ubuntu / Debian** as root do:
 	rm pack.tgz
 	```
 
-1. Install 25+ required gems  
+1. Install 30+ required gems  
 	```
 	gem install bundler --no-ri --no-rdoc
 	bundle
