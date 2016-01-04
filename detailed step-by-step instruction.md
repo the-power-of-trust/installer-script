@@ -29,7 +29,9 @@ On **Ubuntu / Debian** as root do:
 	rvm list remote
 	``` 
 	pick the latest ruby-2.0.x name and use in  
-	`rvm install {name} --binary` — should be like `rvm install ruby-2.0.0-p598 --binary`
+	`rvm install {name} --binary` — should be like `rvm install ruby-2.0.0-p598 --binary`  
+	if there are no ruby-2.0.0 binaries — compile from sources  
+	`rvm install 2.0.0` (it can take 5 mins)
 	```
 	chown -R potrust .rvm
 	su potrust

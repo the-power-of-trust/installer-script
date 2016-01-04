@@ -156,10 +156,17 @@ printf "${W}Installing Ruby v2.0.x for $user"
 		cd $user_homedir
 		bash -c ". .rvm/scripts/rvm;rvm list remote"
 		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.0\..* | grep -v clang | tail -1`
-		echo Using binaries for ${W}$file_name$NC
-		bash -c ". .rvm/scripts/rvm;rvm install $file_name --binary"
+
+		if [ $file_name ]; then
+    		echo Using binaries for ${W}$file_name$NC
+			bash -c ". .rvm/scripts/rvm;rvm install $file_name --binary"
+			sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm; rvm use $file_name --default"
+		else
+			echo "No binaries found - compiling Ruby 2.0.0 from sources (it can take 5 mins)"
+			bash -c ". .rvm/scripts/rvm;rvm install 2.0.0"
+		fi
+
 		chown -R $user .rvm
-		sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm; rvm use $file_name --default"
 		ver=`sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm; ruby -v"`
 		echo ${W}------- ${G}installed: $ver
 		echo
