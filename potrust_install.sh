@@ -2,12 +2,12 @@
 #
 # As root do:
 # recommended for Supernode:
-# bash pot_install.sh
+# bash potrust_install.sh
 # recommended for occasional use:
-# bash pot_install.sh -no_cron_tasks
+# bash potrust_install.sh -no_cron_tasks
 #
 # all the optional params:
-# bash pot_install.sh -dev -no_adduser -no_folders -no_rvm -no_ruby -no_gems -no_mongo -no_cron_tasks -no_start_now
+# bash potrust_install.sh -dev -no_adduser -no_folders -no_rvm -no_ruby -no_gems -no_mongo -no_cron_tasks -no_start_now
 #
 # contribute here — https://github.com/the-power-of-trust/installer-script
 # feedback — yura.des@gmail.com
@@ -28,7 +28,7 @@ esac
 
 if [[ $params == *'-dev '* ]]; then
 	echo '\e[0;36m'DEV mode
-	user=pot_test
+	user=potrust_test
 	if [ $f_osx ]; then
 		dscl . -delete /Users/$user
 		rm -rf /Users/$user
@@ -37,7 +37,7 @@ if [[ $params == *'-dev '* ]]; then
 		rm -rf /home/$user
 	fi
 else
-	user=pot
+	user=potrust
 fi
 user_homedir=/home/$user
 
@@ -75,7 +75,7 @@ printf "${W}Creating isolated user \'$user\' to do not touch anything in the sys
 			mkdir $user_homedir
 			chown -R $user $user_homedir
 		else
-			adduser $user --disabled-password --gecos PoT --quiet
+			adduser $user --disabled-password --gecos potrust --quiet
 		fi
 		echo ${G}done
 		echo

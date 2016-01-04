@@ -1,13 +1,13 @@
 # The Power of Trust — how to run a node
 Just get and run the auto-installer script
-> Installer should be run under the `root` user. A special `pot` user will be created first and all the installation process will be done under that user and inside the `/home/pot` (`/Users/pot`) dir.  
-For the sake of security all the working processes will be run only under the `pot` user.
+> Installer should be run under the `root` user. A special `potrust` user will be created first and all the installation process will be done under that user and inside the `/home/potrust` (`/Users/potrust`) dir.  
+For the sake of security all the working processes will be run only under the `potrust` user.
 
 * On **Ubuntu / Debian**  
-	`wget goo.gl/FmrbSi -qO pot_install.sh --no-check-certificate`  
+	`wget goo.gl/qV9Z1k -qO potrust_install.sh --no-check-certificate`  
 	and then  
-	`bash pot_install.sh -no_cron_tasks` — for occasional use  
-	`bash pot_install.sh` — for running a supernode with opened external port  
+	`bash potrust_install.sh -no_cron_tasks` — for occasional use  
+	`bash potrust_install.sh` — for running a supernode with opened external port  
 	  
 	Check the output for any errors and read the final notes.  
 	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction.md).
@@ -15,10 +15,10 @@ For the sake of security all the working processes will be run only under the `p
 * On **Mac OS X** (10.9+)
 	>Currently there is a problem if brew is not owned by root   
 	
-	`curl -sSL goo.gl/FmrbSi -o pot_install.sh`  
+	`curl -sSL goo.gl/qV9Z1k -o potrust_install.sh`  
 	and then  
-	`bash pot_install.sh -no_cron_tasks` — for occasional use  
-	`bash pot_install.sh` — for running a supernode with opened external port  
+	`bash potrust_install.sh -no_cron_tasks` — for occasional use  
+	`bash potrust_install.sh` — for running a supernode with opened external port  
 	  
 	Check the output for any errors and read the final notes.  
 	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction (OSX).md).

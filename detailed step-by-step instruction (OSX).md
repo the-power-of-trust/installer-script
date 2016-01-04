@@ -4,9 +4,9 @@ Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
 On **Mac OS X** as `root` do:
 
-1. Create isolated user 'pot' to do not touch anything in the system and to limit process permissions  
+1. Create isolated user 'potrust' to do not touch anything in the system and to limit process permissions  
 	```
-	name=pot
+	name=potrust
 	dscl . create /Users/$name
 	dscl . create /Users/$name UserShell /bin/bash
 	dscl . create /Users/$name RealName "$name"
@@ -34,9 +34,9 @@ On **Mac OS X** as `root` do:
 	brew install p7zip
 	```
 
-1. Install RVM for user pot (but still as root)
+1. Install RVM for user potrust (but still as root)
 	```
-	sudo -H -u pot bash -c 'curl -sSL https://get.rvm.io | bash -s stable'
+	sudo -H -u potrust bash -c 'curl -sSL https://get.rvm.io | bash -s stable'
 	alias rvm=.rvm/bin/rvm
 	```
 	>`rvm -v` — should show RVM version  
@@ -47,8 +47,8 @@ On **Mac OS X** as `root` do:
 	rvm install $file_name --binary
 	``` 
 	``` 
-	chown -R pot .rvm
-	su pot
+	chown -R potrust .rvm
+	su potrust
 	source .rvm/scripts/rvm
 	rvm use $file_name --default
 	```
@@ -89,8 +89,8 @@ On **Mac OS X** as `root` do:
 	`./start.sh`  
 	`script /dev/null` — resolves annoying problem with the terminal
 
-1. Now at anytime under the user `pot` you can do:  
-	>some commands work only if you are logged in as `pot` from the login screen, not with `su`
+1. Now at anytime under the user `potrust` you can do:  
+	>some commands work only if you are logged in as `potrust` from the login screen, not with `su`
 	
 	`~/start.sh`  — start node (it it was stopped)  
 	`screen -r`   — check windows  

@@ -4,10 +4,10 @@ Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
 On **Ubuntu / Debian** as root do:
 
-1. Create isolated user 'pot' to do not touch anything in the system and to limit process permissions  
+1. Create isolated user 'potrust' to do not touch anything in the system and to limit process permissions  
 	```
-	adduser pot --disabled-password --gecos PoT --quiet
-	cd /home/pot
+	adduser potrust --disabled-password --gecos potrust --quiet
+	cd /home/potrust
 	```
 
 1. Install some required packages
@@ -15,9 +15,9 @@ On **Ubuntu / Debian** as root do:
 	apt-get install curl p7zip-full screen -y
 	```
 
-1. Install RVM for user pot (but still as root)
+1. Install RVM for user potrust (but still as root)
 	```
-	sudo -H -u pot bash -c '
+	sudo -H -u potrust bash -c '
 		gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 		\curl -sSL https://get.rvm.io | bash -s stable
 	'
@@ -31,8 +31,8 @@ On **Ubuntu / Debian** as root do:
 	pick the latest ruby-2.0.x name and use in  
 	`rvm install {name} --binary` — should be like `rvm install ruby-2.0.0-p598 --binary`
 	```
-	chown -R pot .rvm
-	su pot
+	chown -R potrust .rvm
+	su potrust
 	source .rvm/scripts/rvm
 	```
 	
@@ -74,8 +74,8 @@ On **Ubuntu / Debian** as root do:
 	`./start.sh`  
 	`script /dev/null` — resolves annoying problem with the terminal
 
-1. Now at anytime under the user `pot` you can do:  
-	>*switch from root with: `su pot -c'script /dev/null'`  
+1. Now at anytime under the user `potrust` you can do:  
+	>*switch from root with: `su potrust -c'script /dev/null'`  
 
 	`~/start.sh`  — start node (it it was stopped)  
 	`screen -r`   — check windows  
