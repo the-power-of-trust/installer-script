@@ -254,7 +254,7 @@ $W    Ctrl+a, Esc$NC              — enter the scrolling mode to read an output
 $W    r$NC                        — restart process (if terminated)
 $W    Ctrl+c, r$NC                — restart working process
 $W    Ctrl+a, d$NC                — detach (return to the main terminal)
-$W    Ctrl+a, \$NC                — terminate this screen with all the processes
+$W    Ctrl+a, \\$NC                — terminate this screen with all the processes
 
   Finally:
 $W    localhost:3070$NC   — check Web-Client UI in any local browser (WebKit-based or Firefox)

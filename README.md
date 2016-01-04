@@ -4,7 +4,7 @@ Just get and run the auto-installer script
 For the sake of security all the working processes will be run only under the `potrust` user.
 
 * On **Ubuntu / Debian**  
-	`wget goo.gl/qV9Z1k -qO potrust_install.sh --no-check-certificate`  
+	`wget j.mp/aiscr -qO potrust_install.sh --no-check-certificate`  
 	and then  
 	`bash potrust_install.sh -no_cron_tasks` — for occasional use  
 	`bash potrust_install.sh` — for running a supernode with opened external port  
@@ -15,7 +15,7 @@ For the sake of security all the working processes will be run only under the `p
 * On **Mac OS X** (10.9+)
 	>Currently there is a problem if brew is not owned by root   
 	
-	`curl -sSL goo.gl/qV9Z1k -o potrust_install.sh`  
+	`curl -sSL j.mp/aiscr -o potrust_install.sh`  
 	and then  
 	`bash potrust_install.sh -no_cron_tasks` — for occasional use  
 	`bash potrust_install.sh` — for running a supernode with opened external port  
