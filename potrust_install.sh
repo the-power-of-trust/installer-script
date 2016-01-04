@@ -247,12 +247,14 @@ $W  screen -r$NC   — check windows
 $W  screen -dm$NC  — start node-screen if it was terminated
 
   Inside screen hotkeys:
-$W    ^a,space/backspace$NC  — navigate windows (Node, Web-client, top)
-$W    ^a,w$NC                — list windows
-$W    ^a,[123]$NC            — switch to wnd by N
-$W    ^a,Esc$NC              — enter the scrolling mode to read an output history
-$W    r$NC                   — restart failed task
-$W    ^a,d$NC                — detach (return to the main terminal)
+$W    Ctrl+a, space/backspace$NC  — navigate windows (Node, Web-client, top)
+$W    Ctrl+a, w$NC                — list windows
+$W    Ctrl+a, [123]$NC            — switch to wnd by N
+$W    Ctrl+a, Esc$NC              — enter the scrolling mode to read an output history
+$W    r$NC                        — restart process (if terminated)
+$W    Ctrl+c, r$NC                — restart working process
+$W    Ctrl+a, d$NC                — detach (return to the main terminal)
+$W    Ctrl+a, \$NC                — terminate this screen with all the processes
 
   Finally:
 $W    localhost:3070$NC   — check Web-Client UI in any local browser (WebKit-based or Firefox)

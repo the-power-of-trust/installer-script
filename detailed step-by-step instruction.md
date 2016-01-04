@@ -62,7 +62,7 @@ On **Ubuntu / Debian** as root do:
 	```
 	>`platform/mongodb/bin/mongod --version` — should show `db version v2.2.7, pdfile version 4.5`
 
-1. Start after reboot (needed for supernode)
+1. Auto-start on boot (needed for supernode)
 	```
 	echo '@reboot sleep 5;./start.sh' >> tempcron
 	crontab tempcron
@@ -82,12 +82,14 @@ On **Ubuntu / Debian** as root do:
 	`screen -dm`  — start node-screen if it was terminated  
 
 	Inside screen hotkeys:  
-	`^a,space/backspace`  — navigate windows (Node, Web-client, top)  
-	`^a,w`                — list windows  
-	`^a,[123]`            — switch to wnd by N  
-	`^a,Esc`              — enter the scrolling mode to read an output history  
-	`r`                   — restart failed task  
-	`^a,d`                — detach (return to the main terminal)
+	`Ctrl+a, space/backspace`  — navigate windows (Node, Web-client, top)  
+	`Ctrl+a, w`                — list windows  
+	`Ctrl+a, [123]`            — switch to wnd by N  
+	`Ctrl+a, Esc`              — enter the scrolling mode to read an output history  
+	`r`                        — restart process (if terminated)  
+	`Ctrl+c, r`                — restart working process  
+	`Ctrl+a, d`                — detach (return to the main terminal)  
+	`Ctrl+a, \`                — terminate this screen with all the processes
 
 1. **Finally**  
 	`localhost:3070`   — check Web-Client UI in any browser (WebKit-based or Firefox)  
