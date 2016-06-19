@@ -58,6 +58,8 @@ On **Mac OS X** as `root` do:
 
 1. Create base folder structure
 	```
+	mkdir the-power-of-trust
+	cd the-power-of-trust
 	curl -O inve.org/files/PoT/pack.tgz
 	tar -zxf pack.tgz --strip-components=1
 	rm pack.tgz
