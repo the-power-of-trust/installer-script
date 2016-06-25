@@ -74,6 +74,8 @@ On **Mac OS X** as `root` do:
 1. Install MondoDB
 	```
 	curl http://downloads.mongodb.org/osx/mongodb-osx-x86_64-2.2.7.tgz -o mongodb.tgz
+	mkdir platform
+	mkdir platform/mongodb
 	tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
 	rm mongodb.tgz
 	```
