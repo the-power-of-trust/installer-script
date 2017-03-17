@@ -10,7 +10,7 @@ For the sake of security all the working processes will be run only under the `p
 	`bash potrust_install.sh` — for running a supernode with opened external port  
 	  
 	Check the output for any errors and read the final notes.  
-	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction.md).
+	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed%20step-by-step%20instruction.md).
   
 * On **Mac OS X** (10.9+)
 	>Currently there is a problem if brew is not owned by root   
@@ -21,7 +21,7 @@ For the sake of security all the working processes will be run only under the `p
 	`bash potrust_install.sh` — for running a supernode with opened external port  
 	  
 	Check the output for any errors and read the final notes.  
-	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed step-by-step instruction (OSX).md).
+	If something went wrong and `localhost:3070` doesn't work for you — let's try [the detailed step-by-step instruction](detailed%20step-by-step%20instruction%20(OSX).md).
   
 * Other Linux distributives are waiting for king contributors (just send your pull requests).
 
