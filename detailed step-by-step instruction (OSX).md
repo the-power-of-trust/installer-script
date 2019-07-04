@@ -1,6 +1,7 @@
 ## The Power of Trust — detailed step-by-step instruction
 Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
+! This file is not up to date
 
 On **Mac OS X** as `root` do:
 

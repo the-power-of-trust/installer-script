@@ -27,8 +27,8 @@ For the sake of security all the working processes will be run only under the `p
 
 
 ## Resource usage
-* 750MB of a disk space will be used from start. 
-* Initial RAM usage: 120 MB (38 Node + 42 Web-Client + 40 MongoDB).
+* 820MB of a disk space will be used from start.
+* Initial RAM usage: 240 MB (70 Node + 70 Web-Client + 100 MongoDB).
 * Very low CPU and traffic usage after the initial sync.
 
 ## Feedback

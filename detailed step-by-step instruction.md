@@ -2,7 +2,7 @@
 Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
 
-On **Ubuntu / Debian** as root do:
+On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 
 1. Create isolated user 'potrust' to do not touch anything in the system and to limit process permissions  
 	```
@@ -11,16 +11,16 @@ On **Ubuntu / Debian** as root do:
 	```
 
 1. Install some required packages
+	On a fresh server recommended: `apt-get update; apt-get upgrade`
 	```
-	apt-get install curl p7zip-full screen -y
+	apt-get install sudo curl p7zip-full screen -y
+	apt-get install build-essential — may be needed for Debian 8
 	```
 
 1. Install RVM for user potrust (but still as root)
 	```
-	sudo -H -u potrust bash -c '
-		gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-		\curl -sSL https://get.rvm.io | bash -s stable
-	'
+	sudo -H -u potrust bash -c 'gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB'
+	sudo -H -u potrust bash -c '\curl -sSL https://get.rvm.io | bash -s stable'
 	```
 
 1. Install Ruby (still as root)  
@@ -28,10 +28,10 @@ On **Ubuntu / Debian** as root do:
 	. .rvm/scripts/rvm
 	rvm list remote
 	``` 
-	pick the latest ruby-2.0.x name and use in  
-	`rvm install {name} --binary` — should be like `rvm install ruby-2.0.0-p598 --binary`  
-	if there are no ruby-2.0.0 binaries — compile from sources  
-	`rvm install 2.0.0` (it can take 5 mins)
+	pick the latest ruby-2.6.x name and use in  
+	`rvm install {name} --binary` — should be like `rvm install ruby-2.6.3 --binary`  
+	if there are no ruby-2.6.x binaries — compile from sources  
+	`rvm install 2.6.3` (it can take 5 mins)
 	```
 	chown -R potrust .rvm
 	su potrust
@@ -39,9 +39,9 @@ On **Ubuntu / Debian** as root do:
 	```
 	
 	>`rvm -v` — should show RVM version  
-	`type rvm | head -n 1` — should show `rvm is a function`  
+	`type rvm | head -1` — should show `rvm is a function`  
 	`rvm list` — should show installed Ruby  
-	`ruby -v` — should be similar to `ruby 2.0.0p598 ...`  
+	`ruby -v` — should be similar to `ruby 2.6.3p62 ...`  
 
 1. Create base folder structure
 	```
@@ -50,19 +50,30 @@ On **Ubuntu / Debian** as root do:
 	rm pack.tgz
 	```
 
-1. Install 30+ required gems  
+1. Install 40+ required gems  
 	```
-	gem install bundler --no-ri --no-rdoc
-	bundle
+	gem install bundler --no-document
+	cd app
+	bundle install --without dev
+	rvm cleanup all
 	```
 
 1. Install MondoDB
 	```
-	wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.2.7.tgz -O mongodb.tgz
+	cd ~
+	Ubuntu 16:
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz -O mongodb.tgz
+	Ubuntu 14:
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.22.tgz -O mongodb.tgz
+	Debian 8/9:
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.22.tgz -O mongodb.tgz
+	Linux x64 (see here for better options https://www.mongodb.com/download-center/community):
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.22.tgz -O mongodb.tgz
+	
 	tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
 	rm mongodb.tgz
 	```
-	>`platform/mongodb/bin/mongod --version` — should show `db version v2.2.7, pdfile version 4.5`
+	>`platform/mongodb/bin/mongod --version` — should show `db version v3.2.22`
 
 1. Auto-start on boot (needed for supernode)
 	```
@@ -99,7 +110,7 @@ On **Ubuntu / Debian** as root do:
 	
 1. For supernode  
 	* If incoming connections are firewalled by default, you will need to add and exception for the node port `7733` (TCP).  
-	* You can also open external access to your Web-Client on port `3070` (useful for supernode, but danger for personal node).
+	* You can also open external access to your Web-Client on port `3070` (TCP - http) and `3080` (TCP - WebSocket) (useful for supernode, but danger for personal node).
 
 
 ## Feedback

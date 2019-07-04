@@ -25,6 +25,12 @@ case `uname -s` in
   "Darwin") f_osx=true
 esac
 
+if [ `whoami` != "root" ]; then
+	echo
+	echo "$W    Installer should be launched from the root user$NC"
+	echo
+	exit
+fi
 
 if [[ $params == *'-dev '* ]]; then
 	echo '\e[0;36m'DEV mode
@@ -41,15 +47,9 @@ else
 fi
 user_homedir=/home/$user
 
-if [ `whoami` != "root" ]; then
-	echo
-	echo "$W    Installer should be launched from the root user$NC"
-	echo
-	exit
-fi
 if [[ $f_osx && ! -x `which brew` ]]; then
 	echo
-	echo "$W    Installe Homebrew first - visit http://brew.sh$NC"
+	echo "$W    Install Homebrew first - visit http://brew.sh$NC"
 	echo
 	exit
 fi
@@ -102,6 +102,16 @@ printf "${W}Creating folder structure for $user$NC..."
 	fi
 
 if [ ! $f_osx ]; then
+	apt-get update
+
+	f_installed=`dpkg -l | grep 'ii *sudo'`
+	if [ ! "$f_installed" ]; then
+		echo ${W}Installing sudo -------$NC
+		apt-get install sudo -y
+		echo ${W}------- ${G}done
+		echo
+	fi
+
 	f_installed=`dpkg -l | grep 'ii *curl'`
 	if [ ! "$f_installed" ]; then
 		echo ${W}Installing curl -------$NC
@@ -117,6 +127,14 @@ if [ ! $f_osx ]; then
 		echo ${W}------- ${G}done
 		echo
 	fi
+
+	if [[ `cat /etc/issue` == *'Debian GNU/Linux 8'* ]]; then
+		echo ${W}Installing build-essential -------$NC
+		apt-get install build-essential -y
+		echo ${W}------- ${G}done
+		echo
+	fi
+
 fi
 
 if [ $f_osx ]; then
@@ -140,7 +158,7 @@ printf "${W}Installing RVM for $user"
 	if [[ $params != *'-no_rvm '* ]]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '
-			gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+			gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 			\curl -sSL https://get.rvm.io | bash -s stable
 		'
 		ver=`sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm;rvm -v | cut -d' ' -f-3"`
@@ -150,20 +168,20 @@ printf "${W}Installing RVM for $user"
 		echo $NC...skipped
 	fi
 
-printf "${W}Installing Ruby v2.0.x for $user"
+printf "${W}Installing Ruby v2.6.x for $user"
 	if [[ $params != *'-no_ruby '* ]]; then
 		echo " -------$NC"
 		cd $user_homedir
 		bash -c ". .rvm/scripts/rvm;rvm list remote"
-		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.0\..* | grep -v clang | tail -1`
+		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.6\.3 | grep -v clang | tail -1`
 
 		if [ $file_name ]; then
     		echo Using binaries for ${W}$file_name$NC
 			bash -c ". .rvm/scripts/rvm;rvm install $file_name --binary"
 			sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm; rvm use $file_name --default"
 		else
-			echo "No binaries found - compiling Ruby 2.0.0 from sources (it can take 5 mins)"
-			bash -c ". .rvm/scripts/rvm;rvm install 2.0.0"
+			echo "No binaries found - compiling Ruby from sources (it can take 5 mins)"
+			bash -c ". .rvm/scripts/rvm;rvm install 2.6.3"
 		fi
 
 		chown -R $user .rvm
@@ -174,14 +192,16 @@ printf "${W}Installing Ruby v2.0.x for $user"
 		echo $NC...skipped
 	fi
 
-printf "${W}Installing 30+ gems for $user"
+printf "${W}Installing 40+ gems for $user"
 	if [[ $params != *'-no_gems '* ]]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '
 			cd ~
 			. .rvm/scripts/rvm
-			gem install bundler --no-ri --no-rdoc
-			bundle
+			gem install bundler --no-document
+			cd app
+			bundle install --without dev
+			rvm cleanup all
 		'
 		echo ${W}------- ${G}done
 		echo
@@ -189,15 +209,22 @@ printf "${W}Installing 30+ gems for $user"
 		echo $NC...skipped
 	fi
 
-printf "${W}Installing MondoDB v2.2.7 for $user"
+printf "${W}Installing MondoDB v3.2.22 for $user"
 	if [[ $params != *'-no_mongo '* ]]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c "
 			cd ~
 			if [ $f_osx ]; then
-				curl http://downloads.mongodb.org/osx/mongodb-osx-x86_64-2.2.7.tgz -o mongodb.tgz
+				curl https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.2.22.tgz -o mongodb.tgz
+			elif [[ `cat /etc/issue` == *'Ubuntu 16'* ]]; then
+				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz -O mongodb.tgz
+			elif [[ `cat /etc/issue` == *'Ubuntu 14'* ]]; then
+				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.22.tgz -O mongodb.tgz
+			elif [[ `cat /etc/issue` == *'Debian GNU/Linux 8'* || `cat /etc/issue` == *'Debian GNU/Linux 9'* ]]; then
+				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.22.tgz -O mongodb.tgz
 			else
-				wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.2.7.tgz -O mongodb.tgz
+				# Linux x64
+				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.22.tgz -O mongodb.tgz
 			fi
 			tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
 			rm mongodb.tgz
@@ -269,8 +296,8 @@ $W    app/conf_base.rb$NC — configure your node if needed
 
   For supernode:
   - If incoming connections are firewalled by default,
-    you will need to add and exception for the node port 7733 (TCP).
-  - You can also open external access to your Web-Client on port 3070
+    you will need to add an exception for the node port 7733 (TCP).
+  - You can also open external access to your Web-Client on port 3070 (TCP - http) and 3080 (TCP - WebSocket)
     (useful for supernode, but danger for personal node).
 "
 
