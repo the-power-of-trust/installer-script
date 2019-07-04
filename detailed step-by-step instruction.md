@@ -10,12 +10,12 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	cd /home/potrust
 	```
 
-1. Install some required packages
-	On a fresh server recommended: `apt-get update; apt-get upgrade`
+1. Install some required packages  
+	> On a fresh server recommended to do first: `apt-get update; apt-get upgrade`
 	```
-	apt-get install sudo curl p7zip-full screen -y
-	apt-get install build-essential — may be needed for Debian 8
+	apt-get install sudo curl p7zip-full screen -y	
 	```
+	`apt-get install build-essential` — may be needed additionally for Debian 8
 
 1. Install RVM for user potrust (but still as root)
 	```
@@ -30,7 +30,7 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	``` 
 	pick the latest ruby-2.6.x name and use in  
 	`rvm install {name} --binary` — should be like `rvm install ruby-2.6.3 --binary`  
-	if there are no ruby-2.6.x binaries — compile from sources  
+	if there are no ruby-2.6.x binaries — compile from sources:  
 	`rvm install 2.6.3` (it can take 5 mins)
 	```
 	chown -R potrust .rvm
@@ -84,6 +84,7 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	>`crontab -l` — should show the added tasks
 
 1. Start  
+	`app/conf_my.rb` — configure your node if needed (see `conf_base.rb`)  
 	`./start.sh`  
 	`script /dev/null` — resolves annoying problem with the terminal
 
@@ -105,8 +106,7 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	`Ctrl+a, \`                — terminate this screen with all the processes
 
 1. **Finally**  
-	`localhost:3070`   — check Web-Client UI in any browser (WebKit-based or Firefox)  
-	`app/conf_base.rb` — configure your node if needed  
+	`localhost:3070`   — check Web-Client UI in any browser	
 	
 1. For supernode  
 	* If incoming connections are firewalled by default, you will need to add and exception for the node port `7733` (TCP).  
