@@ -21,6 +21,7 @@ NC=$'\e[0m'
 # needed to detect param by trailing space
 params="[$@ ]"
 
+distro=`cat /etc/issue`
 case `uname -s` in
   "Darwin") f_osx=true
 esac
@@ -102,7 +103,10 @@ printf "${W}Creating folder structure for $user$NC..."
 	fi
 
 if [ ! $f_osx ]; then
+	echo ${W}apt-get update -------$NC
 	apt-get update
+	echo ${W}------- ${G}done
+	echo
 
 	f_installed=`dpkg -l | grep 'ii *sudo'`
 	if [ ! "$f_installed" ]; then
@@ -128,7 +132,7 @@ if [ ! $f_osx ]; then
 		echo
 	fi
 
-	if [[ `cat /etc/issue` == *'Debian GNU/Linux 8'* ]]; then
+	if [[ $distro == *'Debian GNU/Linux 8'* ]]; then
 		echo ${W}Installing build-essential -------$NC
 		apt-get install build-essential -y
 		echo ${W}------- ${G}done
@@ -216,11 +220,11 @@ printf "${W}Installing MondoDB v3.2.22 for $user"
 			cd ~
 			if [ $f_osx ]; then
 				curl https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.2.22.tgz -o mongodb.tgz
-			elif [[ `cat /etc/issue` == *'Ubuntu 16'* ]]; then
+			elif [[ '$distro' == *'Ubuntu 16'* ]]; then
 				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz -O mongodb.tgz
-			elif [[ `cat /etc/issue` == *'Ubuntu 14'* ]]; then
+			elif [[ '$distro' == *'Ubuntu 14'* ]]; then
 				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.22.tgz -O mongodb.tgz
-			elif [[ `cat /etc/issue` == *'Debian GNU/Linux 8'* || `cat /etc/issue` == *'Debian GNU/Linux 9'* ]]; then
+			elif [[ '$distro' == *'Debian GNU/Linux 8'* || '$distro' == *'Debian GNU/Linux 9'* ]]; then
 				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.22.tgz -O mongodb.tgz
 			else
 				# Linux x64
