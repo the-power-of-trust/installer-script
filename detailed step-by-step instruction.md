@@ -61,14 +61,17 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 1. Install MondoDB
 	```
 	cd ~
+	# Linux x64 (no SSL, no depenecies)
+	wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.10.tgz -O mongodb.tgz
+	-- or -- (see here for better options https://www.mongodb.com/download-center/community)
+	Ubuntu 18:
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-4.0.10.tgz -O mongodb.tgz
 	Ubuntu 16:
-	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz -O mongodb.tgz
-	Ubuntu 14:
-	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.22.tgz -O mongodb.tgz
-	Debian 8/9:
-	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.22.tgz -O mongodb.tgz
-	Linux x64 (see here for better options https://www.mongodb.com/download-center/community):
-	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.22.tgz -O mongodb.tgz
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-4.0.10.tgz -O mongodb.tgz
+	Debian 9:
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian92-4.0.10.tgz -O mongodb.tgz
+	Debian 8:
+	  wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian81-4.0.10.tgz -O mongodb.tgz
 	
 	tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
 	rm mongodb.tgz

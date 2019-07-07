@@ -172,7 +172,7 @@ printf "${W}Installing RVM for $user"
 		echo $NC...skipped
 	fi
 
-printf "${W}Installing Ruby v2.6.x for $user"
+printf "${W}Installing Ruby for $user"
 	if [[ $params != *'-no_ruby '* ]]; then
 		echo " -------$NC"
 		cd $user_homedir
@@ -213,23 +213,13 @@ printf "${W}Installing 40+ gems for $user"
 		echo $NC...skipped
 	fi
 
-printf "${W}Installing MondoDB v3.2.22 for $user"
+printf "${W}Installing MondoDB for $user"
 	if [[ $params != *'-no_mongo '* ]]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c "
 			cd ~
-			if [ $f_osx ]; then
-				curl https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.2.22.tgz -o mongodb.tgz
-			elif [[ '$distro' == *'Ubuntu 16'* ]]; then
-				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz -O mongodb.tgz
-			elif [[ '$distro' == *'Ubuntu 14'* ]]; then
-				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.2.22.tgz -O mongodb.tgz
-			elif [[ '$distro' == *'Debian GNU/Linux 8'* || '$distro' == *'Debian GNU/Linux 9'* ]]; then
-				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.22.tgz -O mongodb.tgz
-			else
-				# Linux x64
-				wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.22.tgz -O mongodb.tgz
-			fi
+			# no SSL, no depenecies
+			wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.10.tgz -O mongodb.tgz
 			tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
 			rm mongodb.tgz
 		"
