@@ -3,6 +3,7 @@ Try this if [the fast auto-installer script](README.md) doesn't work for you.
 
 
 On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
+> for Ubuntu there are Ruby binaries, so compilation is not needed and installation is much faster  
 
 1. Create isolated user 'potrust' to do not touch anything in the system and to limit process permissions  
 	```
