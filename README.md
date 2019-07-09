@@ -4,6 +4,8 @@ Just get and run the auto-installer script
 For the sake of security all the working processes will be run only under the `potrust` user.
 
 * On **Ubuntu 14/15/16 or Debian 8/9** (64bit)  
+	> for Ubuntu there are Ruby binaries, so compilation is not needed and installation is much faster  
+	
 	`wget j.mp/aiscr -qO potrust_install.sh --no-check-certificate` (see source [j.mp/aiscr](https://j.mp/aiscr))  
 	and then  
 	`bash potrust_install.sh -no_cron_tasks` — for occasional use  
