@@ -20,7 +20,7 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 
 1. Install RVM for user potrust (but still as root)
 	```
-	sudo -H -u potrust bash -c 'gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB'
+	sudo -H -u potrust bash -c 'gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB'
 	sudo -H -u potrust bash -c '\curl -sSL https://get.rvm.io | bash -s stable'
 	```
 
@@ -29,10 +29,10 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	. .rvm/scripts/rvm
 	rvm list remote
 	``` 
-	pick the latest ruby-2.6.x name and use in  
-	`rvm install {name} --binary` — should be like `rvm install ruby-2.6.3 --binary`  
-	if there are no ruby-2.6.x binaries — compile from sources:  
-	`rvm install 2.6.3` (it can take 5 mins)
+	pick the latest ruby-2.7.x name and use in  
+	`rvm install {name} --binary` — should be like `rvm install ruby-2.7.8 --binary`  
+	if there are no ruby-2.7.x binaries — compile from sources:  
+	`rvm install 2.7.8` (it can take 5 mins)
 	```
 	chown -R potrust .rvm
 	su potrust
@@ -42,7 +42,7 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	>`rvm -v` — should show RVM version  
 	`type rvm | head -1` — should show `rvm is a function`  
 	`rvm list` — should show installed Ruby  
-	`ruby -v` — should be similar to `ruby 2.6.3p62 ...`  
+	`ruby -v` — should be similar to `ruby 2.7.8p225 ...`  
 
 1. Create base folder structure
 	```
@@ -51,9 +51,9 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	rm pack.tgz
 	```
 
-1. Install 40+ required gems  
+1. Install 40+ required gems (-v 2.4.22 needed for Ruby 2.7, not for Ruby 3.1+)  
 	```
-	gem install bundler --no-document
+	gem install bundler -v 2.4.22 --no-document
 	cd app
 	bundle install --without dev
 	rvm cleanup all
@@ -77,7 +77,7 @@ On **Ubuntu 14/15/16 or Debian 8/9** (64bit) as root do:
 	tar -zxf mongodb.tgz -C platform/mongodb --strip-components=1
 	rm mongodb.tgz
 	```
-	>`platform/mongodb/bin/mongod --version` — should show `db version v3.2.22`
+	>`platform/mongodb/bin/mongod --version` — should show `db version v4.0.10`
 
 1. Auto-start on boot (needed for supernode)
 	```

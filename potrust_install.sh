@@ -162,7 +162,7 @@ printf "${W}Installing RVM for $user"
 	if [[ $params != *'-no_rvm '* ]]; then
 		echo " -------$NC"
 		sudo -H -u $user bash -c '
-			gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+			gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 			\curl -sSL https://get.rvm.io | bash -s stable
 		'
 		ver=`sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm;rvm -v | cut -d' ' -f-3"`
@@ -177,7 +177,7 @@ printf "${W}Installing Ruby for $user"
 		echo " -------$NC"
 		cd $user_homedir
 		bash -c ". .rvm/scripts/rvm;rvm list remote"
-		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.6\.3 | grep -v clang | tail -1`
+		file_name=`bash -c ". .rvm/scripts/rvm;rvm list remote" | grep -o ruby-2\.7\.8 | grep -v clang | tail -1`
 
 		if [ $file_name ]; then
     		echo Using binaries for ${W}$file_name$NC
@@ -185,7 +185,7 @@ printf "${W}Installing Ruby for $user"
 			sudo -H -u $user bash -c ". ~/.rvm/scripts/rvm; rvm use $file_name --default"
 		else
 			echo "No binaries found - compiling Ruby from sources (it can take 5 mins)"
-			bash -c ". .rvm/scripts/rvm;rvm install 2.6.3"
+			bash -c ". .rvm/scripts/rvm;rvm install 2.7.8"
 		fi
 
 		chown -R $user .rvm
@@ -202,7 +202,7 @@ printf "${W}Installing 40+ gems for $user"
 		sudo -H -u $user bash -c '
 			cd ~
 			. .rvm/scripts/rvm
-			gem install bundler --no-document
+			gem install bundler -v 2.4.22 --no-document
 			cd app
 			bundle install --without dev
 			rvm cleanup all
